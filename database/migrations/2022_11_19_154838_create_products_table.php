@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('name');
             $table->float('price');
             $table->integer('amount');
-            $table->float('total');
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
