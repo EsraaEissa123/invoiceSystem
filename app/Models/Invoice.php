@@ -9,6 +9,8 @@ class Invoice extends Model
 {
 
     use HasFactory;
+    protected $fillable = ['code', 'total', 'status', 'type'];
+
     public function products()
     {
         return $this->belongsToMany(Product::class);
