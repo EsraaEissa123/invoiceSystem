@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\categories\CategoryController;
-use App\Http\Controllers\suppliers\SuppierController;
+
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -9,6 +8,11 @@ use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\InventoryController;
+use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\SuppierController;
+use App\Http\Controllers\Api\SupplierController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +28,5 @@ use App\Http\Controllers\Api\InventoryController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::apiResource('categories', CategoryController::class);
+Route::apiResource('suppliers', SupplierController::class);

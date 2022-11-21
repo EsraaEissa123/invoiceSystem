@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\categories;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\CategoryRequest;
 use App\Http\Resources\CategoryResource;
@@ -19,23 +19,23 @@ class CategoryController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        $validator = Validator::make(
-            $request->all(),
-            [
-                'name' => 'required|string|min:5|max:255'
-            ]
-        );
-        if ($validator->fails()) {
-            return response()->json(
-                [
-                    'error' => true,
-                    'errors' => $validator->errors()
-                ],
-                422
-            );
-        }
+        // $validator = Validator::make(
+        //     $request->all(),
+        //     [
+        //         'name' => 'required|string|min:5|max:255'
+        //     ]
+        // );
+        // if ($validator->fails()) {
+        //     return response()->json(
+        //         [
+        //             'error' => true,
+        //             'errors' => $validator->errors()
+        //         ],
+        //         422
+        //     );
+        // }
 
         $category = new Category(['name' => $request->name]);
         $category->save();
@@ -50,23 +50,23 @@ class CategoryController extends Controller
     }
 
 
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
-        $validator = Validator::make(
-            $request->all(),
-            [
-                'name' => 'required|string|min:5|max:255'
-            ]
-        );
-        if ($validator->fails()) {
-            return response()->json(
-                [
-                    'error' => true,
-                    'errors' => $validator->errors()
-                ],
-                422
-            );
-        }
+        // $validator = Validator::make(
+        //     $request->all(),
+        //     [
+        //         'name' => 'required|string|min:5|max:255'
+        //     ]
+        // );
+        // if ($validator->fails()) {
+        //     return response()->json(
+        //         [
+        //             'error' => true,
+        //             'errors' => $validator->errors()
+        //         ],
+        //         422
+        //     );
+        // }
         $category->name = $request->name;
         $category->save();
         return  new CategoryResource($category);
