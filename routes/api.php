@@ -5,6 +5,10 @@ use App\Http\Controllers\suppliers\SuppierController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthController;
+use Illuminate\Support\Facades\App;
+use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\InventoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +21,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-Route::apiResource('categories', CategoryController::class);
-Route::apiResource('suppliers', SuppierController::class);
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
