@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
-    protected $fillable = ['name','price','amount','category_id'];
+    protected $fillable = ['name','purchase_price','sell_price','amount','category_id'];
 
     public function inventories()
     {
-        return $this->belongsToMany(Inventory::class);
+        return $this->belongsToMany(Inventory::class,'store_product_inventory','product_id','inventory_id')->withPivot('amount')->withTimestamps();
     }
     public function category()
     {

@@ -19,6 +19,7 @@ class InventoryFactory extends Factory
         return [
             'name' => fake()->word(),
             'location' => fake()->address(),
+             'type'=>fake()->randomElement($array=['inventory','shop']),
             'created_at' => now(),
             'updated_at' => now(),
         ];

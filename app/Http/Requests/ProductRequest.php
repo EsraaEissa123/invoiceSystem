@@ -25,7 +25,8 @@ class ProductRequest extends BaseFormRequest
     {
         return [
             'name'=> 'required|string|min:3|max:20',
-            'price'=> 'required|numeric|gt:0',
+            'purchase_price'=> 'required|numeric|gt:0',
+            'sell_price'=> 'required|numeric|gt:0',
             'amount'=> 'required|numeric|gt:0',
             'category_id'=> 'required|exists:categories,id'
         ];

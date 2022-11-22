@@ -9,11 +9,11 @@ class Inventory extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','location'];
-    
+    protected $fillable = ['name','location','type'];
+
     public function products()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class,'store_product_inventory','inventory_id','product_id')->withPivot('amount')->withTimestamps();
     }
 
     public function suppliers()
