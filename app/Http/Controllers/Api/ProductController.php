@@ -44,4 +44,5 @@ class ProductController extends Controller
         $product->delete();
         return "product has been deleted";
     }
+
 }

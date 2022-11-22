@@ -12,7 +12,7 @@ class Product extends Model
 
     public function inventories()
     {
-        return $this->belongsToMany(Inventory::class);
+        return $this->belongsToMany(Inventory::class,'store_product_inventory','product_id','inventory_id')->withPivot('amount')->withTimestamps();
     }
     public function category()
     {

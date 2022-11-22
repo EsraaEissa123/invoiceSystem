@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\InventoryController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\StoreProductController;
 use App\Http\Controllers\Api\SuppierController;
 use App\Http\Controllers\Api\SupplierController;
 
@@ -34,3 +35,5 @@ Route::apiResource('products',ProductController::class);
 
 Route::apiResource('categories', CategoryController::class);
 Route::apiResource('suppliers', SupplierController::class);
+
+Route::post('store_product',[\App\Http\Controllers\Api\StoreProductController::class,'StoreProduct']);

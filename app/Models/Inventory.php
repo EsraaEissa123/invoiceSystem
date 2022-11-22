@@ -13,7 +13,7 @@ class Inventory extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class,'store_product_inventory','inventory_id','product_id')->withPivot('amount')->withTimestamps();
     }
 
     public function suppliers()
