@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SupplierRequest extends BaseFormRequest
+class InvoiceRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,10 @@ class SupplierRequest extends BaseFormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:5|max:255',
-            'phone' => 'required|unique:suppliers|digits:11'
+            'code' => 'required|unique:invoices',
+            'total' => 'required|numeric|gt:0',
+            'status' => 'required|string',
+            'type' => 'required|string'
         ];
     }
 }
