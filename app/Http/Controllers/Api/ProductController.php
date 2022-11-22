@@ -21,7 +21,8 @@ class ProductController extends Controller
     public function store(ProductRequest $request){
         $product = Product::create([
             'name'=> $request-> name,
-            'price'=> $request->price,
+            'purchase_price'=> $request->purchase_price,
+            'sell_price'=> $request->sell_price,
             'amount'=> $request->amount,
             'category_id'=>$request->category_id
         ]);
@@ -31,7 +32,8 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $product -> update([
             'name'=> $request-> name,
-            'price'=> $request->price,
+            'purchase_price'=> $request->purchase_price,
+            'sell_price'=> $request->sell_price,
             'amount'=> $request->amount,
             'category_id'=>$request->category_id
         ]);

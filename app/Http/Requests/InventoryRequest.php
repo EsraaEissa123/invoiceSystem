@@ -26,6 +26,7 @@ class InventoryRequest extends BaseFormRequest
         return [
             'name' => 'required|string|min:3|max:20',
             'location' => 'required|string|min:3|max:20',
+            'type'=>'required|string|in:shop,inventory'
         ];
     }
 }

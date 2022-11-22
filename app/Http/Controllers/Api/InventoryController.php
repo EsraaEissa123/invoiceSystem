@@ -23,6 +23,7 @@ class InventoryController extends Controller
         $inventory = Inventory::create([
            'name' => $request->name,
           'location' => $request->location,
+          'type'=>$request->type
         ]);
         return new InventoryResourse($inventory);
 
@@ -34,6 +35,7 @@ class InventoryController extends Controller
       $inventory -> update([
          'name' => $request->name,
          'location' => $request->location,
+         'type'=>$request->type
       ]);
        return new InventoryResourse($inventory);
     }
