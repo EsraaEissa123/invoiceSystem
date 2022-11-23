@@ -24,8 +24,8 @@ class StoreProductRequest extends BaseFormRequest
     public function rules()
     {
         return [
-            'product_id'=>'required|exists:products,id',
-            'inventory_id'=> 'required|exists:inventories,id'
+            // 'product_id'=>'required|exists:products,id',
+            // 'inventory_id'=> 'required|exists:inventories,id'
 
         ];
     }
