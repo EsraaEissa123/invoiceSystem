@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('status');
             $table->string('type');
             $table->float('total', 8, 2);
+            $table->float('paid',8,2);
             $table->timestamps();
         });
     }

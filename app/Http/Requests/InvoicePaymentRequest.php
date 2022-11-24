@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreProductRequest extends BaseFormRequest
+class InvoicePaymentRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,7 @@ class StoreProductRequest extends BaseFormRequest
     public function rules()
     {
         return [
-            'product_id'=>'required|exists:products,id',
-            'inventory_id'=> 'required|exists:inventories,id',
-            'amount'=>'required|gt:0'
-
+            'payment' => 'required|numeric|gt:0'
         ];
     }
 }

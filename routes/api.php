@@ -41,3 +41,8 @@ Route::post('store_product',[\App\Http\Controllers\Api\StoreProductController::c
 
 Route::apiResource('invoices', InvoiceController::class);
 
+Route::put('full_payment/{id}',[\App\Http\Controllers\Api\InvoicePaymentController::class,'fullPayment']);
+Route::put('partial_payment/{id}',[\App\Http\Controllers\Api\InvoicePaymentController::class,'partialPayment']);
+
+
+

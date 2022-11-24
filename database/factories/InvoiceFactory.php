@@ -21,8 +21,9 @@ class InvoiceFactory extends Factory
         return [
             'code' => Str::random(10),
             'total' => fake()->numberBetween(1.0, 999.1000),
-            'status' => fake()->randomElement(array('deferred', 'paid')),
-            'type' => fake()->randomElement(array('Purchases', 'sales', 'returns')),
+            'paid' => fake()->randomDigitNotZero(),
+            'status' => fake()->randomElement(array('postponed', 'paid')),
+            'type' => fake()->randomElement(array('purchases', 'sales', 'returns')),
             'created_at' => now(),
             'updated_at' => now(),
         ];
