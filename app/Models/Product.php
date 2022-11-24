@@ -30,4 +30,9 @@ class Product extends Model
     {
         return $this->belongsToMany(Supplier::class);
     }
+    public function transactionInventories()
+    {
+        return $this->belongsToMany(Inventory::class,'store_product_inventory','product_id','inventory_id')->withPivot('amount')->withTimestamps();
+    }
 }
+

@@ -1,16 +1,17 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
-use Illuminate\Support\Facades\App;
-use App\Http\Controllers\Api\CustomerController;
-use App\Http\Controllers\Api\InventoryController;
+use App\Http\Controllers\Api\InvoiceController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CategoryController;
-use App\Http\Controllers\Api\StoreProductController;
-use App\Http\Controllers\Api\InvoiceController;
+use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\SupplierController;
+use App\Http\Controllers\Api\InventoryController;
+use App\Http\Controllers\Api\TransactionController;
+use App\Http\Controllers\Api\StoreProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,4 +41,5 @@ Route::apiResource('suppliers', SupplierController::class);
 Route::post('store_product',[\App\Http\Controllers\Api\StoreProductController::class,'StoreProduct']);
 
 Route::apiResource('invoices', InvoiceController::class);
+Route::post('provide', [TransactionController::class, 'transaction']);
 

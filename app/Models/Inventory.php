@@ -28,4 +28,12 @@ class Inventory extends Model
     {
         return $this->belongsToMany(Invoice::class);
     }
+    public function transactionProducts()
+    {
+        return $this->belongsToMany(Product::class,'provide','inventory_id','shop_id','product_id')->withPivot('amount')->withTimestamps();
+    }
+    public function invetories()
+    {
+        return $this->belongsToMany(invetory::class,'provide','inventory_id','shop_id','product_id')->withPivot('amount')->withTimestamps();
+    }
 }
