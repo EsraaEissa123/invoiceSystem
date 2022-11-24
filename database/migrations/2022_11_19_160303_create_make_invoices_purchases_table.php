@@ -19,7 +19,7 @@ return new class extends Migration
             $table->float('price');
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('invoice_id');
-
+        
             $table->unsignedBigInteger('supplier_id');
             $table->foreign('product_id')->references('id')->on('products');
             $table->foreign('invoice_id')->references('id')->on('invoices');

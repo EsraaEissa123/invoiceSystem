@@ -24,6 +24,7 @@ class InvoiceController extends Controller
         $invoice = new Invoice([
             'code' => $request->code,
             'total' => $request->total,
+            'paid'=>$request->paid,
             'status' => $request->status,
             'type' => $request->type
 
@@ -43,6 +44,7 @@ class InvoiceController extends Controller
     {
         $invoice->code = $request->code;
         $invoice->total = $request->total;
+        $invoice->paid = $request->paid;
         $invoice->status = $request->status;
         $invoice->type = $request->type;
         $invoice->save();
@@ -61,4 +63,5 @@ class InvoiceController extends Controller
             200
         );
     }
+
 }
