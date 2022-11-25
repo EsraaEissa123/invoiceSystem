@@ -13,6 +13,8 @@ use App\Http\Controllers\Api\InventoryController;
 use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\Api\StoreProductController;
 use App\Http\Controllers\api\PurchaseInvoiceController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,13 +41,29 @@ Route::apiResource('products', ProductController::class);
 
 Route::apiResource('categories', CategoryController::class);
 Route::apiResource('suppliers', SupplierController::class);
-Route::post('store_product',[\App\Http\Controllers\Api\StoreProductController::class,'StoreProduct']);
+Route::post('store_product', [\App\Http\Controllers\Api\StoreProductController::class, 'StoreProduct']);
 
 Route::apiResource('invoices', InvoiceController::class);
 Route::post('provide', [TransactionController::class, 'transaction']);
 
-Route::put('full_payment/{id}',[\App\Http\Controllers\Api\InvoicePaymentController::class,'fullPayment']);
-Route::put('partial_payment/{id}',[\App\Http\Controllers\Api\InvoicePaymentController::class,'partialPayment']);
+Route::put('full_payment/{id}', [\App\Http\Controllers\Api\InvoicePaymentController::class, 'fullPayment']);
+Route::put('partial_payment/{id}', [\App\Http\Controllers\Api\InvoicePaymentController::class, 'partialPayment']);
 Route::post('purchaseInvoice', [PurchaseInvoiceController::class, 'purchaseInvoice']);
 
+// Route::group(['middleware' => ['auth']], function () {
+//     Route::resource('roles', RoleController::class);
+//     Route::resource('users', UserController::class);
+// });
+Route::apiResource('users', UserController::class);
+Route::apiResource('roles', RoleController::class);
+//  ->middleware(
+//     'permission:role-list|role-create|role-edit|role-delete',
+//     ['only' => ['index', 'store']],
+//     'permission:role-create',
+//     ['only' => ['create', 'store']],
+//     'permission:role-edit',
+//     ['only' => ['edit', 'update']],
+//     'permission:role-delete',
+//     ['only' => ['destroy']]
 
+// );
