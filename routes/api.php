@@ -13,6 +13,8 @@ use App\Http\Controllers\Api\InventoryController;
 use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\Api\StoreProductController;
 use App\Http\Controllers\api\PurchaseInvoiceController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,7 +50,20 @@ Route::put('full_payment/{id}', [\App\Http\Controllers\Api\InvoicePaymentControl
 Route::put('partial_payment/{id}', [\App\Http\Controllers\Api\InvoicePaymentController::class, 'partialPayment']);
 Route::post('purchaseInvoice', [PurchaseInvoiceController::class, 'purchaseInvoice']);
 
-Route::group(['middleware' => ['auth']], function () {
-    Route::resource('roles', RoleController::class);
-    Route::resource('users', UserController::class);
-});
+// Route::group(['middleware' => ['auth']], function () {
+//     Route::resource('roles', RoleController::class);
+//     Route::resource('users', UserController::class);
+// });
+Route::apiResource('users', UserController::class);
+Route::apiResource('roles', RoleController::class);
+//  ->middleware(
+//     'permission:role-list|role-create|role-edit|role-delete',
+//     ['only' => ['index', 'store']],
+//     'permission:role-create',
+//     ['only' => ['create', 'store']],
+//     'permission:role-edit',
+//     ['only' => ['edit', 'update']],
+//     'permission:role-delete',
+//     ['only' => ['destroy']]
+
+// );
