@@ -20,7 +20,7 @@ class Product extends Model
     }
     public function invoices()
     {
-        return $this->belongsToMany(Invoice::class);
+        return $this->belongsToMany(Invoice::class, 'make_invoices_purchases','supplier_id', 'product_id','invoice_id')->withPivot('amount', 'price')->withTimestamps();
     }
     public function customers()
     {
@@ -28,11 +28,12 @@ class Product extends Model
     }
     public function suppliers()
     {
-        return $this->belongsToMany(Supplier::class);
+        return $this->belongsToMany(Supplier::class, 'make_invoices_purchases','supplier_id', 'product_id','invoice_id')->withPivot('amount', 'price')->withTimestamps();
     }
     public function transactionInventories()
     {
         return $this->belongsToMany(Inventory::class,'store_product_inventory','product_id','inventory_id')->withPivot('amount')->withTimestamps();
     }
+   
 }
 

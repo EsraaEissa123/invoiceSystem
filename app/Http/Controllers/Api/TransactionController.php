@@ -55,7 +55,7 @@ class TransactionController extends Controller
                         $product_id=$request->product[$i]['product_id'];
                             $inventory_id=$request->inventory_id;
                             $shop_id=$request->shop_id;
-                    // return "shop not exist";
+                    
                     //store product in this shop
             $product = Product::findOrFail($request->product[$i]['product_id']);
                     $product -> inventories()
