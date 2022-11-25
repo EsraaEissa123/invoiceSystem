@@ -23,7 +23,7 @@ class InvoiceFactory extends Factory
             'total' => fake()->numberBetween(1.0, 999.1000),
             'paid' => fake()->randomDigitNotZero(),
             'status' => fake()->randomElement(array('postponed', 'paid')),
-            'type' => fake()->randomElement(array('purchases', 'sales', 'returns')),
+            'type' => fake()->randomElement(array('purchases', 'sales')),
             'created_at' => now(),
             'updated_at' => now(),
         ];
