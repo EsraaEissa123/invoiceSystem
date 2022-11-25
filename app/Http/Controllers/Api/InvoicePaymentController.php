@@ -37,6 +37,7 @@ class InvoicePaymentController extends Controller
          }else{
             $invoice->paid = $invoice->total;
             $invoice->status = 'paid';
+             $invoice ->save();
          }
        }
          return new InvoiceResource($invoice);
