@@ -30,6 +30,9 @@ class DatabaseSeeder extends Seeder
             SupplierSeeder::class,
             InvoiceSeeder::class,
             ProductSeeder::class,
+            PermissionTableSeeder::class,
+            CreateAdminUserSeeder::class,
+
         ]);
     }
 }
