@@ -13,15 +13,15 @@ class Invoice extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class);
-    }
+        return $this->belongsToMany(Product::class, 'make_invoices_purchases','supplier_id', 'product_id','invoice_id')->withPivot('amount', 'price')->withTimestamps();    }
     public function inventories()
     {
         return $this->belongsToMany(Inventory::class);
     }
     public function suppliers()
     {
-        return $this->belongsToMany(Supplier::class);
+        return $this->belongsToMany(Supplier::class, 'make_invoices_purchases','supplier_id', 'product_id','invoice_id')->withPivot('amount', 'price')->withTimestamps();
+
     }
     public function customers()
     {

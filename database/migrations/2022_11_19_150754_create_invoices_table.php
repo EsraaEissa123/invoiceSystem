@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->string('code')->unique();
-            $table->string('status');
+            $table->string('status')->default('postponed');
             $table->string('type');
             $table->float('total', 8, 2);
             $table->float('paid',8,2);

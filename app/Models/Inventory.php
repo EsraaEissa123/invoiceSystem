@@ -32,7 +32,7 @@ class Inventory extends Model
     {
         return $this->belongsToMany(Product::class,'provide','inventory_id','shop_id','product_id')->withPivot('amount')->withTimestamps();
     }
-    public function invetories()
+    public function inventories()
     {
         return $this->belongsToMany(invetory::class,'provide','inventory_id','shop_id','product_id')->withPivot('amount')->withTimestamps();
     }

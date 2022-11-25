@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\Api\InventoryController;
 use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\Api\StoreProductController;
+use App\Http\Controllers\api\PurchaseInvoiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,6 @@ Route::post('provide', [TransactionController::class, 'transaction']);
 
 Route::put('full_payment/{id}',[\App\Http\Controllers\Api\InvoicePaymentController::class,'fullPayment']);
 Route::put('partial_payment/{id}',[\App\Http\Controllers\Api\InvoicePaymentController::class,'partialPayment']);
-
+Route::post('purchaseInvoice', [PurchaseInvoiceController::class, 'purchaseInvoice']);
 
 
