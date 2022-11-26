@@ -13,7 +13,7 @@ class InvoicePaymentController extends Controller
 
     public function fullPayment($id){
        $invoice = Invoice::findOrFail($id);
-       if($invoice->status == 'postponed' & $invoice->type =='purchases'){
+       if($invoice->type == 'sales' | $invoice->type =='purchases'){
          $invoice->paid = $invoice->total;
          $invoice->status = 'paid';
          $invoice ->save();
@@ -25,15 +25,17 @@ class InvoicePaymentController extends Controller
 
     public function PartialPayment (InvoicePaymentRequest $request ,$id){
         $invoice = Invoice::findOrFail($id);
-        if($invoice->status == 'postponed' & $invoice->type =='purchases'){
+
+        if($invoice->type == 'sales' | $invoice->type =='purchases'){
          $new_paid = $invoice->paid + $request->payment;
          if($new_paid > $invoice->total){
             $remainder = $invoice->total - $invoice->paid;
-            return 'incorrect : you paid '. $invoice->paid .'and the remainder is' . $remainder;
+            return 'incorrect : you paid '. $invoice->paid .' and the remainder is ' . $remainder;
          }
          else if($new_paid < $invoice->total){
              $invoice->paid = $new_paid;
-             $invoice ->save();
+              $invoice ->save();
+
          }else{
             $invoice->paid = $invoice->total;
             $invoice->status = 'paid';
