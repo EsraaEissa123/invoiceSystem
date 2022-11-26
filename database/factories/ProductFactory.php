@@ -19,8 +19,8 @@ class ProductFactory extends Factory
     {
         return [
             'name' => fake()->word(),
-            'purchase_price' => fake()->randomDigitNotZero(),
-            'sell_price' => fake()->randomDigitNotZero(),
+            'purchase_price' => fake()->numberBetween(10,20),
+            'sell_price' => fake()->numberBetween(21,30),
             'amount'=>fake()->numberBetween(0,1000),
             'category_id'=> Category::all()->random()->id,
             'created_at' => now(),
