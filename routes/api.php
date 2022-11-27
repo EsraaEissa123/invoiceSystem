@@ -51,11 +51,10 @@ Route::put('partial_payment/{id}', [\App\Http\Controllers\Api\InvoicePaymentCont
 Route::post('purchaseInvoice', [PurchaseInvoiceController::class, 'purchaseInvoice']);
 
 // Route::group(['middleware' => ['auth']], function () {
-//     Route::resource('roles', RoleController::class);
-//     Route::resource('users', UserController::class);
-// });
 Route::apiResource('users', UserController::class);
 Route::apiResource('roles', RoleController::class);
+// });
+
 //  ->middleware(
 //     'permission:role-list|role-create|role-edit|role-delete',
 //     ['only' => ['index', 'store']],
