@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\InventoryRequest;
 use App\Http\Resources\InventoryResourse;
 use App\Models\Inventory;
-use Illuminate\Http\Request;
+
 
 class InventoryController extends Controller
 {
@@ -14,7 +14,9 @@ class InventoryController extends Controller
         $inventories = Inventory::get();
         return InventoryResourse::collection($inventories);
     }
+
     public function show ($id){
+
         $inventory = Inventory::findOrFail($id);
         return new InventoryResourse($inventory);
     }
