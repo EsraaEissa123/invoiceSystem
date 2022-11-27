@@ -26,6 +26,7 @@ class UserRequest extends BaseFormRequest
         return [
 
             'name' => 'required',
+            'inventory_id'=> 'required|exists:inventories,id',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
             'roles' => 'required'
