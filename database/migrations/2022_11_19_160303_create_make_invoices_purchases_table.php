@@ -18,9 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('invoice_id');
             $table->unsignedBigInteger('supplier_id');
             $table->unsignedBigInteger('product_id');
-            $table->integer('amount');
-            $table->float('price');
-
+            $table->integer('amount')->unsigned();    
+            $table->float('purchase_price');
             $table->foreign('invoice_id')->references('id')->on('invoices');
             $table->foreign('supplier_id')->references('id')->on('suppliers');
             $table->foreign('product_id')->references('id')->on('products');

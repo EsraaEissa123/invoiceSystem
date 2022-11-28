@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('inventory_id');
             $table->unsignedBigInteger('product_id');
-            $table->integer('amount');
+            $table->integer('amount')->unsigned();    
             $table->timestamps();
 
             $table->foreign('inventory_id')->references('id')->on('inventories');

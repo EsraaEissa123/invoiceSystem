@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
-    protected $fillable = ['name','purchase_price','sell_price','amount','category_id'];
+    protected $fillable = ['name','sell_price','amount','category_id'];
 
     public function inventories()
     {
@@ -20,19 +20,25 @@ class Product extends Model
     }
     public function invoices()
     {
-        return $this->belongsToMany(Invoice::class, 'make_invoices_purchases','supplier_id', 'product_id','invoice_id')->withPivot('amount', 'price')->withTimestamps();
+        return $this->belongsToMany(Invoice::class, 'make_invoices_purchases','supplier_id', 'product_id','invoice_id')->withPivot('amount', 'purchase_price')->withTimestamps();
     }
-    public function customers()
-    {
-        return $this->belongsToMany(Customer::class);
-    }
+   
     public function suppliers()
     {
-        return $this->belongsToMany(Supplier::class, 'make_invoices_purchases','supplier_id', 'product_id','invoice_id')->withPivot('amount', 'price')->withTimestamps();
+        return $this->belongsToMany(Supplier::class, 'make_invoices_purchases','supplier_id', 'product_id','invoice_id')->withPivot('amount', 'purchase_price')->withTimestamps();
     }
     public function transactionInventories()
     {
         return $this->belongsToMany(Inventory::class,'store_product_inventory','product_id','inventory_id')->withPivot('amount')->withTimestamps();
+    }
+    public function sellInvoices()
+    {
+        return $this->belongsToMany(Invoice::class, 'make_invoices_sales','customer_id', 'product_id','invoice_id')->withPivot('amount', 'sell_price')->withTimestamps();
+    }
+    public function customers()
+    {
+        return $this->belongsToMany(Customer::class, 'make_invoices_sales','customer_id', 'product_id','invoice_id')->withPivot('amount', 'sell_price')->withTimestamps();
+        
     }
    
 }

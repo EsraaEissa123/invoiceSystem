@@ -13,11 +13,11 @@ class Supplier extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'make_invoices_purchases','supplier_id', 'product_id','invoice_id')->withPivot('amount', 'price')->withTimestamps();
+        return $this->belongsToMany(Product::class, 'make_invoices_purchases','supplier_id', 'product_id','invoice_id')->withPivot('amount', 'purchase_price')->withTimestamps();
     }
     public function invoices()
     {
-        return $this->belongsToMany(Invoice::class, 'make_invoices_purchases','supplier_id', 'product_id','invoice_id')->withPivot('amount', 'price')->withTimestamps();
+        return $this->belongsToMany(Invoice::class, 'make_invoices_purchases','supplier_id', 'product_id','invoice_id')->withPivot('amount', 'purchase_price')->withTimestamps();
         
     }
 }
