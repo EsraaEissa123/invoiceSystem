@@ -14,6 +14,7 @@ class PurchaseInvoiceController extends Controller
 {
     public function purchaseInvoice(PurchaseInvoicesRequest $request)
     {
+       
         //store to invoice
         $invoice = new Invoice([
             'code' => $request->code,
@@ -32,20 +33,20 @@ class PurchaseInvoiceController extends Controller
         for ($i = 0; $i < $countproduct; $i++) { 
             $product_id=$request->product[$i]['product_id'];
             $amounInProducts=Product::findOrFail($product_id)->amount;
-            $price=$request->product[$i]['price'];
+            $price=$request->product[$i]['purchase_price'];
             $amount=$request->product[$i]['amount'];
         
-            $supplier_id=$request->supplier_id;
         $supplier_id=$request->supplier_id;
         $supplier= Supplier::findOrFail($supplier_id);
         $supplier ->Products()
-        ->attach($request->supplier_id,['price' =>$price,'amount' =>$amount,'supplier_id'=>$supplier_id,'product_id'=>$product_id,'invoice_id'=>$invoice_id]);
+        ->attach($request->supplier_id,['purchase_price' =>$price,'amount' =>$amount,'supplier_id'=>$supplier_id,'product_id'=>$product_id,'invoice_id'=>$invoice_id]);
         $supplier->save(); 
         
         //update product amount in products
         $updateAmountInProducts =$amounInProducts + $request->product[$i]['amount'];
         DB::update('update products set amount= ? where id = ?',[$updateAmountInProducts,$product_id]);
-        return 'purchase invoice saved';
+        return response()->json(['status' => true, 'msg' => 'your purchases invoice saved']);
+
         }
     }
 }

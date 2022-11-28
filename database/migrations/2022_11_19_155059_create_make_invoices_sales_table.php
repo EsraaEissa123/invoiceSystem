@@ -15,10 +15,11 @@ return new class extends Migration
     {
         Schema::create('make_invoices_sales', function (Blueprint $table) {
             $table->id();
-            $table->integer('amount');
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('invoice_id');
-            $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('customer_id')->nullable();
+            $table->integer('amount')->unsigned();    
+            $table->float('sell_price');
             $table->foreign('product_id')->references('id')->on('products');
             $table->foreign('invoice_id')->references('id')->on('invoices');
             $table->foreign('customer_id')->references('id')->on('customers');
