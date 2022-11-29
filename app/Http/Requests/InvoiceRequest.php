@@ -28,7 +28,7 @@ class InvoiceRequest extends BaseFormRequest
             'total' => 'required|numeric|gt:0|gte:paid',
             'paid' => 'required|numeric|gt:0|lte:total',
             'status' => 'string|in:paid:postponed',
-            'type' => 'required|string'
+            'type' => 'required|string|in:sales:purchases'
         ];
     }
 }
