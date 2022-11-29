@@ -26,7 +26,7 @@ class RoleRequest extends baseFormRequest
         return [
 
             'name' => 'required|unique:roles,name',
-            'permission' => 'required',
+            // 'permission' => 'required',
 
         ];
     }

@@ -24,8 +24,8 @@ class SupplierRequest extends BaseFormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:5|max:255',
-            'phone' => 'required|unique:suppliers|digits:11'
+            'name' => 'required|string',
+            'phone' => 'required|unique:suppliers'
         ];
     }
 }

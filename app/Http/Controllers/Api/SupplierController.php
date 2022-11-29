@@ -51,25 +51,25 @@ class SupplierController extends Controller
     }
 
 
-    public function update(SupplierRequest $request, Supplier $supplier)
+    public function update(Request $request, Supplier $supplier)
     {
-        // $validator = Validator::make(
-        //     $request->all(),
-        //     [
-        //         'name' => 'required|string|unique:suppliers|min:5|max:255',
-        //         'phone' => 'required|string|unique:suppliers|min:11|max:255'
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required|string',
+                'phone' => 'required'
 
-        //     ]
-        // );
-        // if ($validator->fails()) {
-        //     return response()->json(
-        //         [
-        //             'error' => true,
-        //             'errors' => $validator->errors()
-        //         ],
-        //         422
-        //     );
-        // }
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json(
+                [
+                    'error' => true,
+                    'errors' => $validator->errors()
+                ],
+                422
+            );
+        }
         $supplier->name = $request->name;
         $supplier->phone = $request->phone;
         $supplier->save();

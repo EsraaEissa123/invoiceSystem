@@ -43,7 +43,20 @@ class RoleController extends Controller
 
 
         $role = Role::create(['name' => $request->input('name')]);
-        $role->syncPermissions($request->input('permission'));
+        if ($request->name == 'user') {
+
+            $role->givePermissionTo('create-invoice');
+            $role->save();
+            // syncPermissions($request->input('permission'));
+        } else if ($request->name == 'admin') {
+            $permissions = Permission::pluck('id', 'id')->all();
+            $role->syncPermissions($permissions);
+            $role->save();
+        } else {
+
+            return " please enter roles Admin or user Olny";
+        }
+
 
         return response()->json($role);
     }
