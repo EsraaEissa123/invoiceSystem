@@ -26,8 +26,9 @@ class SellInvoicesRequest extends BaseFormRequest
         return [
             'total'=>'required',
             'customer_id'=>'nullable|exists:customers,id',
-            // 'product_id'=>'required|exists:products,id',
-            // 'amount'=>'required|gt:0'
+            'product.*.product_id'=>'required|exists:products,id',
+            'product.*.amount'=>'required|gt:0',
+            'product.*.sell_price'=> 'required|numeric|gt:0'
 
         ];
     }
