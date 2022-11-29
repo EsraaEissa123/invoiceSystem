@@ -54,11 +54,10 @@ Route::post('purchaseInvoice', [PurchaseInvoiceController::class, 'purchaseInvoi
 Route::post('sellInvoice', [SalesInvoiceController::class, 'sellInvoice']);
 
 // Route::group(['middleware' => ['auth']], function () {
-//     Route::resource('roles', RoleController::class);
-//     Route::resource('users', UserController::class);
-// });
 Route::apiResource('users', UserController::class);
 Route::apiResource('roles', RoleController::class);
+// });
+
 //  ->middleware(
 //     'permission:role-list|role-create|role-edit|role-delete',
 //     ['only' => ['index', 'store']],
@@ -70,5 +69,4 @@ Route::apiResource('roles', RoleController::class);
 //     ['only' => ['destroy']]
 
 // );
-
-
+Route::get('/filter/{type}', [InvoiceController::class, 'filter']);
