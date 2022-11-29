@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule as Rule;
 
 class SupplierRequest extends BaseFormRequest
 {
@@ -25,7 +25,7 @@ class SupplierRequest extends BaseFormRequest
     {
         return [
             'name' => 'required|string|min:3|max:255',
-            'phone' => 'required|unique:suppliers|digits:11'
+            'phone' => ['min:10|required', Rule::unique('suppliers')->ignore($this->supplier)]
         ];
     }
 }

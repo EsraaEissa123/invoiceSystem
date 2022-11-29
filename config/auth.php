@@ -35,18 +35,22 @@ return [
     |
     */
 
+
     'guards' => [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
-     
-        'api' => [
+        'admin-api' => [
             'driver' => 'passport',
-            'provider' => 'users',
+            'provider' => 'admins',
         ],
+        'api' => [
+            'driver' => 'token',
+            'provider' => 'users',
+            'hash' => false,
+        ]
     ],
-
     /*
     |--------------------------------------------------------------------------
     | User Providers
@@ -69,11 +73,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        // 'admins' => [
+        //     'driver' => 'eloquent',
+        //     'model' => App\Models\Admin::class,
+        // ]
     ],
 
     /*
