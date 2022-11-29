@@ -29,7 +29,6 @@ class CustomerRequest extends BaseFormRequest
             'name' => 'required|string',
             'phone' => ['min:10|required', Rule::unique('customers')->ignore($this->customer)]
 
-
         ];
     }
 }

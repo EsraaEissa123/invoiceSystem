@@ -17,7 +17,9 @@ class InventoryProductResourse extends JsonResource
         return [
             'product_id' => $this->pivot->product_id,
             'product_name'=>$this->name,
-            'amount'=> $this->pivot->amount
+            'amount'=> $this->pivot->amount,
+            'sell_price'=>$this->sell_price,
+            'category'=>$this->category->name
         ];
     }
 }
