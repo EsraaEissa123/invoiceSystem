@@ -69,4 +69,6 @@ Route::apiResource('roles', RoleController::class);
 //     ['only' => ['destroy']]
 
 // );
+
 Route::get('/filter/{type}', [InvoiceController::class, 'filter']);
+

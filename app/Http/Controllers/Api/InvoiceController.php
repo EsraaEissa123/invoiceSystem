@@ -70,4 +70,5 @@ class InvoiceController extends Controller
             200
         );
     }
+
 }
