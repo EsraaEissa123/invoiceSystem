@@ -24,7 +24,7 @@ class CustomerRequest extends BaseFormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:3|max:20',
+            'name' => 'required|string|min:3|max:255',
             'phone' => 'required|string|digits:11|unique:customers',
         ];
     }

@@ -18,7 +18,6 @@ class InvoiceController extends Controller
         return InvoiceResource::collection($invoice);
     }
 
-
     public function store(InvoiceRequest $request)
     {
         $invoice = new Invoice([
@@ -63,5 +62,7 @@ class InvoiceController extends Controller
             200
         );
     }
+
+ 
 
 }
