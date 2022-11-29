@@ -18,28 +18,29 @@ class AuthController extends Controller
     {
         $user = User::create([
           'name' => $request->name,
+          'inventory_id'=>$request->inventory_id,
           'email' => $request->email,
           'password' => Hash::make($request->password),
         ]);
         $token = $user->createToken('User')->accessToken;
-    
+
         $user['token']=$token;
-    
+
         return response()->json(['status' => true, 'msg' => 'You are registered', 'data' => $user]);
       }
-    
+
     public function login(LoginFormRequest $request)
     {
         $is_user = Auth::attempt([
           'email' => $request->email,
           'password' => $request->password,
         ]);
-    
+
         if ($is_user) {
           $user  =  auth()->user();
           $token  =  $user->createToken($user)->accessToken;
           $user['token'] = $token;
-    
+
           return new UserResources($user);
         } else {
           return response()->json(['status' => false, 'msg' => 'You are not authenticated']);

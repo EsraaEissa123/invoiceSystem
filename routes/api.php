@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\Api\InventoryController;
 use App\Http\Controllers\Api\TransactionController;
+use App\Http\Controllers\api\SalesInvoiceController;
 use App\Http\Controllers\Api\StoreProductController;
 use App\Http\Controllers\api\PurchaseInvoiceController;
 use App\Http\Controllers\RoleController;
@@ -49,6 +50,7 @@ Route::post('provide', [TransactionController::class, 'transaction']);
 Route::put('full_payment/{id}', [\App\Http\Controllers\Api\InvoicePaymentController::class, 'fullPayment']);
 Route::put('partial_payment/{id}', [\App\Http\Controllers\Api\InvoicePaymentController::class, 'partialPayment']);
 Route::post('purchaseInvoice', [PurchaseInvoiceController::class, 'purchaseInvoice']);
+Route::post('sellInvoice', [SalesInvoiceController::class, 'sellInvoice']);
 
 // Route::group(['middleware' => ['auth']], function () {
 Route::apiResource('users', UserController::class);
@@ -66,3 +68,4 @@ Route::apiResource('roles', RoleController::class);
 //     ['only' => ['destroy']]
 
 // );
+Route::get('/filter/{type}', [InvoiceController::class, 'filter']);

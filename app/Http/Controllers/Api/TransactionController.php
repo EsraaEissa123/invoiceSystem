@@ -18,15 +18,15 @@ class TransactionController extends Controller
         
         for ($i = 0; $i < $countproduct; $i++) { 
             $product = Product::findOrFail($request->product[$i]['product_id']);
-            $inventoryIdExist=$product->inventories()->where('inventory_id',$request->inventory_id)->exists();
-            $shopIdExist=$product->inventories()->where('inventory_id',$request->shop_id)->exists();
+            $productsInInventory=$product->inventories()->where('inventory_id',$request->inventory_id)->exists();
+            $productsInShop=$product->inventories()->where('inventory_id',$request->shop_id)->exists();
     
             //if product in inventory
-            if ($inventoryIdExist) {
+            if ($productsInInventory) {
                 $requestedAmount= $request->product[$i]['amount'];
                 $amountOfProductInTheInventory=$product->inventories()->findOrFail($request->inventory_id, ['inventory_id'])->pivot->amount;          
                 if ($amountOfProductInTheInventory>=$requestedAmount) {
-                    if ($shopIdExist) {
+                    if ($productsInShop) {
                         $amountOfProductInShop=$product->inventories()->findOrFail($request->shop_id, ['inventory_id'])->pivot->amount;          
                         //make direct transaction
                         $amount = $request->product[$i]['amount'];
@@ -49,7 +49,7 @@ class TransactionController extends Controller
                             DB::table('store_product_inventory')->where('inventory_id', $inventory_id)->delete();
                         }
                         
-                        return "transaction happened";
+                        return response()->json(['status' => true, 'msg' => 'Your transaction done']);
                         
                     }else {
                         $product_id=$request->product[$i]['product_id'];
@@ -57,7 +57,7 @@ class TransactionController extends Controller
                             $shop_id=$request->shop_id;
                     
                     //store product in this shop
-            $product = Product::findOrFail($request->product[$i]['product_id']);
+                    $product = Product::findOrFail($request->product[$i]['product_id']);
                     $product -> inventories()
                     ->attach($request->shop_id,['amount' => $requestedAmount]);
                     $product->save();
@@ -75,16 +75,18 @@ class TransactionController extends Controller
                         $shop -> transactionProducts()
                         ->attach($request->shop_id,['amount' =>$amount,'product_id'=>$product_id,'inventory_id'=>$inventory_id]);
                         $shop->save();
-                        return "transaction happened";
+                        return response()->json(['status' => true, 'msg' => 'Your transaction done']);
+
 
                   }
                 
             }
             else {
-                return "No enough products in this inventory";
+                return response()->json(['status' => true, 'msg' => 'No enough products in this inventory']);
+
               }
             }else {
-              return "No products in this inventory";
+                return response()->json(['status' => true, 'msg' => 'No products in this inventory']);
             }
             }//end for
           

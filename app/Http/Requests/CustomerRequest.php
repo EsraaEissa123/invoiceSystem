@@ -26,9 +26,8 @@ class CustomerRequest extends BaseFormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:3|max:20',
-            'phone' => 'required|string|digits:11|unique:customers,phone',
-            'phone' => ['required', Rule::unique('customers')->ignore($this->customer)]
+            'name' => 'required|string',
+            'phone' => ['min:10|required', Rule::unique('customers')->ignore($this->customer)]
 
 
         ];

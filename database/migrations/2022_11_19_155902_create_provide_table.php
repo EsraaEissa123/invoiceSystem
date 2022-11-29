@@ -22,7 +22,7 @@ return new class extends Migration
             $table->foreign('inventory_id')->references('id')->on('inventories');
             $table->foreign('shop_id')->references('id')->on('inventories');
             $table->foreign('product_id')->references('id')->on('products');
-            $table->integer('amount');
+            $table->integer('amount')->unsigned();    
             $table->timestamps();
         });
     }

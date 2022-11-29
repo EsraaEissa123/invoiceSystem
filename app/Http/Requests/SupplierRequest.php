@@ -25,7 +25,7 @@ class SupplierRequest extends BaseFormRequest
     {
         return [
             'name' => 'required|string',
-            'phone' => ['required', Rule::unique('suppliers')->ignore($this->supplier)]
+            'phone' => ['min:10|required', Rule::unique('suppliers')->ignore($this->supplier)]
         ];
     }
 }

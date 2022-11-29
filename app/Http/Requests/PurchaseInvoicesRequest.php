@@ -26,8 +26,11 @@ class PurchaseInvoicesRequest extends BaseFormRequest
         return [
             'code'=>'required|unique:invoices',
             'supplier_id'=>'required|exists:suppliers,id',
-            // 'product_id'=>'required|exists:products,id',
-            // 'amount'=>'required|gt:0'
+            'product.*.product_id'=>'required|exists:products,id',
+            'product.*.amount'=>'required|gt:0',
+            'product.*.purchase_price'=> 'required|numeric|gt:0',
+            'total'=> 'required|numeric|gt:0',
+            'paid'=> 'required|numeric|gt:0',
 
         ];
     }

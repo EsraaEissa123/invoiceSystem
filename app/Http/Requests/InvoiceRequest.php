@@ -26,7 +26,7 @@ class InvoiceRequest extends BaseFormRequest
         return [
             'code' => 'required|unique:invoices',
             'total' => 'required|numeric|gt:0|gte:paid',
-            'paid' => 'required|numeric|gt:0',
+            'paid' => 'required|numeric|gt:0|lte:total',
             'status' => 'string|in:paid:postponed',
             'type' => 'required|string'
         ];
