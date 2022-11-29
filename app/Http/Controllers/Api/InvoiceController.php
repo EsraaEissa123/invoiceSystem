@@ -24,7 +24,7 @@ class InvoiceController extends Controller
         $invoice = new Invoice([
             'code' => $request->code,
             'total' => $request->total,
-            'paid'=>$request->paid,
+            'paid' => $request->paid,
             'status' => $request->status,
             'type' => $request->type
 
@@ -37,6 +37,14 @@ class InvoiceController extends Controller
     public function show(Invoice $invoice)
     {
         return  new InvoiceResource($invoice);
+    }
+    public function filter($type)
+    {
+
+        $invoices = Invoice::get();
+        $filtered = $invoices->where('type', $type);
+        $filtered->all();
+        return InvoiceResource::collection($filtered);
     }
 
 
@@ -63,5 +71,4 @@ class InvoiceController extends Controller
             200
         );
     }
-
 }

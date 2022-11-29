@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Customer;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CustomerRequest extends BaseFormRequest
 {
@@ -24,8 +26,10 @@ class CustomerRequest extends BaseFormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:3|max:20',
-            'phone' => 'required|string|digits:11|unique:customers',
+            'name' => 'required|string',
+            'phone' => ['min:11|required', Rule::unique('customers')->ignore($this->customer)]
+
+
         ];
     }
 }
