@@ -13,7 +13,7 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        $customers = Customer::get();
+        $customers = Customer::paginate(15);
         return CustomerResourse::collection($customers);
     }
     public function show($id)

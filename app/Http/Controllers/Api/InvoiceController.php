@@ -9,12 +9,13 @@ use App\Http\Resources\InvoiceResource;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
 
+
 class InvoiceController extends Controller
 {
 
     public function index()
     {
-        $invoice = Invoice::get();
+        $invoice = Invoice::paginate(15);
         return InvoiceResource::collection($invoice);
     }
 
@@ -40,10 +41,28 @@ class InvoiceController extends Controller
     public function filter($type)
     {
 
-        $invoices = Invoice::get();
+        $invoices = Invoice::paginate(15);
         $filtered = $invoices->where('type', $type);
         $filtered->all();
         return InvoiceResource::collection($filtered);
+    }
+    public function postponedInvoices(Request $request)
+    {
+        if( $request->has('status') && $request->has('status') == 'postponed'){
+
+         if($request->input('type') == 'purchases'){
+
+               $invoices = Invoice::where(['type'=>'purchases','status'=>'postponed'])->paginate(15);
+               return InvoiceResource::collection($invoices);
+             }
+             else if($request->input('type') == 'sales') {
+
+                 $invoices = Invoice::where(['type'=>'sales','status'=>'postponed'])->paginate(15);
+               return InvoiceResource::collection($invoices);
+             }else{
+                return "incorrect invoice type";
+             }
+        }
     }
 
 

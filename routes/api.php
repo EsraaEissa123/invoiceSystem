@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\Api\InventoryController;
+use App\Http\Controllers\Api\InvoicePaymentController;
 use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\api\SalesInvoiceController;
 use App\Http\Controllers\Api\StoreProductController;
@@ -73,6 +74,7 @@ Route::apiResource('roles', RoleController::class);
 Route::middleware('auth:api')->group(function () {
 
     Route::post('logout', [AuthController::class, 'logout']);
-}
+});
 Route::get('/filter/{type}', [InvoiceController::class, 'filter']);
+Route::get('/postponedInvoices', [InvoiceController::class, 'postponedInvoices']);
 
