@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers\Auth;
+
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -7,49 +9,78 @@ use App\Http\Resources\UserResources;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Laravel\Passport\TokenRepository;
 use App\Http\Requests\Auth\LoginFormRequest;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\Auth\RegisterFormRequest;
 
 class AuthController extends Controller
 {
-    public function register(RegisterFormRequest $request)
-    {
-        $user = User::create([
-          'name' => $request->name,
-          'inventory_id'=>$request->inventory_id,
-          'email' => $request->email,
-          'password' => Hash::make($request->password),
+  public function register(Request $request)
+  {
+    $validator = Validator::make($request->all(), [
+      'name' => 'required|string',
+      'email' => 'required|email|max:191|unique:users,email',
+      'password' => 'required|string|max:50|min:5|same:password_confirmation',
+      'password_confirmation'  => 'required|string|max:50|min:5',
+      'inventory_id' => 'required'
+    ]);
+    if ($validator->fails()) {
+      return response()->json([
+        'validation_errors' => $validator->messages(),
+      ]);
+    } else {
+      $user = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+        'inventory_id' => $request->inventory_id
+      ]);
+
+      $token = $user->createToken($user->email . '_Token')->plainTextToken;
+      return response()->json([
+        'status' => 200,
+        'username' => $user->name,
+        'token' => $token,
+        'inventory_id' => $user->inventory_id,
+        'message' => 'User Added Successfully',
+      ]);
+    }
+  }
+
+  public function login(Request $request)
+  {
+    $validator = Validator::make($request->all(), [
+      'email' => 'required|email|max:191',
+      'password' => 'required|min:5',
+    ]);
+    if ($validator->fails()) {
+      return response()->json([
+        'validation_errors' => $validator->messages(),
+      ]);
+    } else {
+      $user = User::where('email', $request->email)->first();
+
+      if (!$user || !Hash::check($request->password, $user->password)) {
+        return response()->json([
+          'status' => 401,
+          'message' => 'invalid credentials',
         ]);
-        $token = $user->createToken('User')->accessToken;
-
-        $user['token']=$token;
-
-        return response()->json(['status' => true, 'msg' => 'You are registered', 'data' => $user]);
-      }
-
-    public function login(LoginFormRequest $request)
-    {
-        $is_user = Auth::attempt([
-          'email' => $request->email,
-          'password' => $request->password,
+      } else {
+        $token = $user->createToken($user->email . '_Token')->plainTextToken;
+        return response()->json([
+          'status' => 200,
+          'username' => $user->name,
+          'token' => $token,
+          'inventory_id' => $user->inventory_id,
+          'message' => 'Logged In Successfully',
         ]);
-
-        if ($is_user) {
-          $user  =  auth()->user();
-          $token  =  $user->createToken($user)->accessToken;
-          $user['token'] = $token;
-
-          return new UserResources($user);
-        } else {
-          return response()->json(['status' => false, 'msg' => 'You are not authenticated']);
-        }
-      }
-
-    public function logout(Request $request)
-    {
-        auth()->user()->token()->revoke();
-        return response()->json(['status' => true, 'msg' => 'Logout Successflluy']);
       }
     }
+  }
+
+  public function logout(Request $request)
+  {
+    auth()->user()->token()->revoke();
+    return response()->json(['status' => true, 'msg' => 'Logout Successflluy']);
+  }
+}
