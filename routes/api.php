@@ -47,7 +47,7 @@ Route::apiResource('invoices', InvoiceController::class)->middleware(
     'permission:create-invoice'
 );
 Route::post('provide', [TransactionController::class, 'transaction']);
-
+Route::get('transaction', [TransactionController::class, 'getTransaction']);
 Route::put('full_payment/{id}', [InvoicePaymentController::class, 'fullPayment']);
 Route::put('partial_payment/{id}',[InvoicePaymentController::class,'partialPayment']);
 
@@ -78,4 +78,3 @@ Route::middleware('auth:api')->group(function () {
 });
 Route::get('/filter/{type}', [InvoiceController::class, 'filter']);
 Route::get('/postponedInvoices', [InvoiceController::class, 'postponedInvoices']);
-
