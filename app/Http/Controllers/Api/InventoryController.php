@@ -11,7 +11,7 @@ use App\Models\Inventory;
 class InventoryController extends Controller
 {
     public function index (){
-        $inventories = Inventory::get();
+        $inventories = Inventory::paginate(15);
         return InventoryResourse::collection($inventories);
     }
 

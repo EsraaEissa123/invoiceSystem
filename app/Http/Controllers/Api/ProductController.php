@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     public function index (){
-        $products = Product::get();
+        $products = Product::paginate(15);
         return ProductResourse::collection($products);
     }
     public function show($id){

@@ -30,7 +30,7 @@ class InvoicePaymentController extends Controller
          $new_paid = $invoice->paid + $request->payment;
          if($new_paid > $invoice->total){
             $remainder = $invoice->total - $invoice->paid;
-            return 'incorrect : you paid '. $invoice->paid .' and the remainder is ' . $remainder;
+            return 'warning: you paid '. $invoice->paid .' and the remainder is ' . $remainder;
          }
          else if($new_paid < $invoice->total){
              $invoice->paid = $new_paid;
