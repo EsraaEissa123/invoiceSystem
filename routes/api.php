@@ -43,9 +43,11 @@ Route::apiResource('categories', CategoryController::class);
 Route::apiResource('suppliers', SupplierController::class);
 Route::post('store_product', [StoreProductController::class, 'StoreProduct']);
 
-Route::apiResource('invoices', InvoiceController::class);
+Route::apiResource('invoices', InvoiceController::class)->middleware(
+    'permission:create-invoice'
+);
 Route::post('provide', [TransactionController::class, 'transaction']);
-
+Route::get('transaction', [TransactionController::class, 'getTransaction']);
 Route::put('full_payment/{id}', [InvoicePaymentController::class, 'fullPayment']);
 Route::put('partial_payment/{id}',[InvoicePaymentController::class,'partialPayment']);
 
@@ -57,8 +59,7 @@ Route::apiResource('users', UserController::class);
 Route::apiResource('roles', RoleController::class);
 // });
 
-//  ->middleware(
-//     'permission:role-list|role-create|role-edit|role-delete',
+
 //     ['only' => ['index', 'store']],
 //     'permission:role-create',
 //     ['only' => ['create', 'store']],
@@ -77,4 +78,3 @@ Route::middleware('auth:api')->group(function () {
 });
 Route::get('/filter/{type}', [InvoiceController::class, 'filter']);
 Route::get('/postponedInvoices', [InvoiceController::class, 'postponedInvoices']);
-

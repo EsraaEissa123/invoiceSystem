@@ -91,4 +91,11 @@ class TransactionController extends Controller
             }//end for
           
     }
+    //get transactions
+    public function getTransaction()
+    {
+        $transaction = DB::table('provide')->distinct()->get();
+        return $transaction;
+
+    }
 }

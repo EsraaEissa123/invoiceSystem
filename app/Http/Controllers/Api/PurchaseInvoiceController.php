@@ -20,7 +20,7 @@ class PurchaseInvoiceController extends Controller
             'code' => $request->code,
             'total' => $request->total,
             'paid'=>$request->paid,
-            'type' => "Purchases"
+            'type' => "purchases"
         ]);
         $invoice->save();
         $invoice_id=$invoice->id;

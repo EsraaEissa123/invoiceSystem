@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->float('sell_price');
-            $table->integer('amount')->unsigned();    
+            $table->integer('amount')->unsigned()->default(0);    
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
