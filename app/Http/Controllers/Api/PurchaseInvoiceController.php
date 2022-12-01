@@ -28,7 +28,7 @@ class PurchaseInvoiceController extends Controller
             DB::update('update invoices set status= ? where id = ?',['paid',$invoice_id]);
         }
 
-        //store to invoice_purchace
+        //store to invoice_purchase
         $countproduct = count($request->product);
         for ($i = 0; $i < $countproduct; $i++) { 
             $product_id=$request->product[$i]['product_id'];
@@ -41,7 +41,24 @@ class PurchaseInvoiceController extends Controller
         $supplier ->Products()
         ->attach($request->supplier_id,['purchase_price' =>$price,'amount' =>$amount,'supplier_id'=>$supplier_id,'product_id'=>$product_id,'invoice_id'=>$invoice_id]);
         $supplier->save(); 
-        
+        //store to selected inventory
+        $product = Product::findOrFail($product_id);
+        $productsinthisinventory = $product->inventories()->where('inventory_id',$request->inventory_id)->exists();
+
+        if ($productsinthisinventory){
+         $oldamount = $product->inventories()->findOrFail($request->inventory_id, ['inventory_id'])->pivot->amount;
+
+         $newamount = $oldamount+$amount;
+
+         $product->inventories()->updateExistingPivot($request->inventory_id,['amount'=> $newamount]);
+
+        }else{
+          $product -> inventories()
+         ->attach($request->inventory_id,['amount' => $amount]);
+        }
+
+         $product->amount += $amount;
+         $product->save();
         //update product amount in products
         $updateAmountInProducts =$amounInProducts + $request->product[$i]['amount'];
         DB::update('update products set amount= ? where id = ?',[$updateAmountInProducts,$product_id]);
