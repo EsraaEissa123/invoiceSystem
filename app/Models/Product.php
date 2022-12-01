@@ -22,7 +22,7 @@ class Product extends Model
     {
         return $this->belongsToMany(Invoice::class, 'make_invoices_purchases','supplier_id', 'product_id','invoice_id')->withPivot('amount', 'purchase_price')->withTimestamps();
     }
-   
+
     public function suppliers()
     {
         return $this->belongsToMany(Supplier::class, 'make_invoices_purchases','supplier_id', 'product_id','invoice_id')->withPivot('amount', 'purchase_price')->withTimestamps();
@@ -38,8 +38,8 @@ class Product extends Model
     public function customers()
     {
         return $this->belongsToMany(Customer::class, 'make_invoices_sales','customer_id', 'product_id','invoice_id')->withPivot('amount', 'sell_price')->withTimestamps();
-        
+
     }
-   
+
 }
 

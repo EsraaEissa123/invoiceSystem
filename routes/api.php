@@ -40,22 +40,22 @@ Route::apiResource('products', ProductController::class);
 
 Route::apiResource('categories', CategoryController::class);
 Route::apiResource('suppliers', SupplierController::class);
-Route::post('store_product', [\App\Http\Controllers\Api\StoreProductController::class, 'StoreProduct']);
+Route::post('store_product', [StoreProductController::class, 'StoreProduct']);
 
 Route::apiResource('invoices', InvoiceController::class);
 Route::post('provide', [TransactionController::class, 'transaction']);
 
-Route::put('full_payment/{id}', [\App\Http\Controllers\Api\InvoicePaymentController::class, 'fullPayment']);
-Route::put('partial_payment/{id}', [\App\Http\Controllers\Api\InvoicePaymentController::class, 'partialPayment']);
+Route::put('full_payment/{id}', [InvoicePaymentController::class, 'fullPayment']);
+Route::put('partial_payment/{id}',[InvoicePaymentController::class,'partialPayment']);
+
 Route::post('purchaseInvoice', [PurchaseInvoiceController::class, 'purchaseInvoice']);
 Route::post('sellInvoice', [SalesInvoiceController::class, 'sellInvoice']);
 
 // Route::group(['middleware' => ['auth']], function () {
-//     Route::resource('roles', RoleController::class);
-//     Route::resource('users', UserController::class);
-// });
 Route::apiResource('users', UserController::class);
 Route::apiResource('roles', RoleController::class);
+// });
+
 //  ->middleware(
 //     'permission:role-list|role-create|role-edit|role-delete',
 //     ['only' => ['index', 'store']],
@@ -68,8 +68,11 @@ Route::apiResource('roles', RoleController::class);
 
 // );
 
+
 // middleware to ensure that every request is authenticated
 Route::middleware('auth:api')->group(function () {
 
     Route::post('logout', [AuthController::class, 'logout']);
-});  
+}
+Route::get('/filter/{type}', [InvoiceController::class, 'filter']);
+

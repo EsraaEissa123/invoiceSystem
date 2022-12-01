@@ -21,8 +21,10 @@ class ProductResourse extends JsonResource
             'sell_price'=> $this->sell_price,
             'amount'=> $this->amount,
             'category'=> new CategoryResource($this->Category),
+            // 'category'=> $this->category->name,
             'created_at'=>$this ->created_at,
             'updated_at'=>$this->updated_at
+
         ];
     }
 }
