@@ -29,7 +29,9 @@ use App\Http\Controllers\UserController;
 |
 */
 
-
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
@@ -49,7 +51,7 @@ Route::apiResource('invoices', InvoiceController::class);
 Route::post('provide', [TransactionController::class, 'transaction']);
 Route::get('transaction', [TransactionController::class, 'getTransaction']);
 Route::put('full_payment/{id}', [InvoicePaymentController::class, 'fullPayment']);
-Route::put('partial_payment/{id}',[InvoicePaymentController::class,'partialPayment']);
+Route::put('partial_payment/{id}', [InvoicePaymentController::class, 'partialPayment']);
 
 Route::post('purchaseInvoice', [PurchaseInvoiceController::class, 'purchaseInvoice']);
 Route::post('sellInvoice', [SalesInvoiceController::class, 'sellInvoice']);
