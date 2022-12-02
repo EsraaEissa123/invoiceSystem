@@ -87,4 +87,5 @@ Route::middleware(['cors'])->group(function () {
     Route::get('/postponedInvoices', [InvoiceController::class, 'postponedInvoices']);
 
 });
+
 Route::get('/debt', [InvoiceController::class, 'debt']);
