@@ -78,3 +78,4 @@ Route::middleware('auth:api')->group(function () {
 });
 Route::get('/filter/{type}', [InvoiceController::class, 'filter']);
 Route::get('/postponedInvoices', [InvoiceController::class, 'postponedInvoices']);
+Route::get('/debt', [InvoiceController::class, 'debt']);
