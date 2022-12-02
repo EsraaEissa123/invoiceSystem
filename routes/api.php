@@ -72,7 +72,11 @@ Route::apiResource('roles', RoleController::class);
 
 
 // middleware to ensure that every request is authenticated
-Route::middleware('auth:api')->group(function () {
+// Route::middleware('auth:api')->group(function () {
+
+//     Route::post('logout', [AuthController::class, 'logout']);
+// });
+Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::post('logout', [AuthController::class, 'logout']);
 });
