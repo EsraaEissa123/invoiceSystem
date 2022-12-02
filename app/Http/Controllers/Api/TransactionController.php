@@ -94,7 +94,8 @@ class TransactionController extends Controller
     //get transactions
     public function getTransaction()
     {
-        $transaction = DB::table('provide')->distinct()->get();
+        $transaction = DB::table('provide')->distinct()->paginate(15);
+        
         return $transaction;
 
     }
