@@ -52,11 +52,11 @@ class AuthController extends Controller
     //     auth()->user()->token()->revoke();
     //     return response()->json(['status' => true, 'msg' => 'Logout Successflluy']);
     //   }
-      public function logout(){
-        auth()->user()->tokens()->delete();
-        return response()->json([
-            'status'=>200,
-            'message'=>'logged out successfully',
-        ]);
-    }
+    public function logout(){
+      auth()->user()->tokens()->delete();
+      return response()->json([
+          'status'=>200,
+          'message'=>'logged out successfully',
+      ]);
+  }
     }
