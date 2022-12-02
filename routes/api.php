@@ -44,10 +44,10 @@ Route::apiResource('products', ProductController::class);
 Route::apiResource('categories', CategoryController::class);
 Route::apiResource('suppliers', SupplierController::class);
 Route::post('store_product', [StoreProductController::class, 'StoreProduct']);
-
-Route::apiResource('invoices', InvoiceController::class)->middleware(
-    'permission:create-invoice'
-);
+Route::apiResource('invoices', InvoiceController::class);
+// Route::apiResource('invoices', InvoiceController::class)->middleware(
+//     'permission:create-invoice'
+// );
 Route::post('provide', [TransactionController::class, 'transaction']);
 Route::get('transaction', [TransactionController::class, 'getTransaction']);
 Route::put('full_payment/{id}', [InvoicePaymentController::class, 'fullPayment']);
