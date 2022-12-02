@@ -29,53 +29,62 @@ use App\Http\Controllers\UserController;
 |
 */
 
-
-
-Route::post('register', [AuthController::class, 'register']);
-Route::post('login', [AuthController::class, 'login']);
-
-Route::apiResource('customers', CustomerController::class);
-Route::apiResource('inventories', InventoryController::class);
-Route::apiResource('products', ProductController::class);
-
-
-Route::apiResource('categories', CategoryController::class);
-Route::apiResource('suppliers', SupplierController::class);
-Route::post('store_product', [StoreProductController::class, 'StoreProduct']);
-
-Route::apiResource('invoices', InvoiceController::class)->middleware(
-    'permission:create-invoice'
-);
-Route::post('provide', [TransactionController::class, 'transaction']);
-Route::get('transaction', [TransactionController::class, 'getTransaction']);
-Route::put('full_payment/{id}', [InvoicePaymentController::class, 'fullPayment']);
-Route::put('partial_payment/{id}',[InvoicePaymentController::class,'partialPayment']);
-
-Route::post('purchaseInvoice', [PurchaseInvoiceController::class, 'purchaseInvoice']);
-Route::post('sellInvoice', [SalesInvoiceController::class, 'sellInvoice']);
-
-// Route::group(['middleware' => ['auth']], function () {
-Route::apiResource('users', UserController::class);
-Route::apiResource('roles', RoleController::class);
-// });
-
-
-//     ['only' => ['index', 'store']],
-//     'permission:role-create',
-//     ['only' => ['create', 'store']],
-//     'permission:role-edit',
-//     ['only' => ['edit', 'update']],
-//     'permission:role-delete',
-//     ['only' => ['destroy']]
-
-// );
-
-
-// middleware to ensure that every request is authenticated
-Route::middleware('auth:api')->group(function () {
-
-    Route::post('logout', [AuthController::class, 'logout']);
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
 });
-Route::get('/filter/{type}', [InvoiceController::class, 'filter']);
-Route::get('/postponedInvoices', [InvoiceController::class, 'postponedInvoices']);
+
+Route::middleware(['cors'])->group(function () {
+    Route::post('register', [AuthController::class, 'register']);
+    Route::post('login', [AuthController::class, 'login']);
+
+    Route::apiResource('customers', CustomerController::class);
+    Route::apiResource('inventories', InventoryController::class);
+    Route::apiResource('products', ProductController::class);
+
+
+    Route::apiResource('categories', CategoryController::class);
+    Route::apiResource('suppliers', SupplierController::class);
+    Route::post('store_product', [StoreProductController::class, 'StoreProduct']);
+    Route::apiResource('invoices', InvoiceController::class);
+    // Route::apiResource('invoices', InvoiceController::class)->middleware(
+    //     'permission:create-invoice'
+    // );
+    Route::post('provide', [TransactionController::class, 'transaction']);
+    Route::get('transaction', [TransactionController::class, 'getTransaction']);
+    Route::put('full_payment/{id}', [InvoicePaymentController::class, 'fullPayment']);
+    Route::put('partial_payment/{id}', [InvoicePaymentController::class, 'partialPayment']);
+
+    Route::post('purchaseInvoice', [PurchaseInvoiceController::class, 'purchaseInvoice']);
+    Route::post('sellInvoice', [SalesInvoiceController::class, 'sellInvoice']);
+
+    // Route::group(['middleware' => ['auth']], function () {
+    Route::apiResource('users', UserController::class);
+    Route::apiResource('roles', RoleController::class);
+    // });
+
+
+    //     ['only' => ['index', 'store']],
+    //     'permission:role-create',
+    //     ['only' => ['create', 'store']],
+    //     'permission:role-edit',
+    //     ['only' => ['edit', 'update']],
+    //     'permission:role-delete',
+    //     ['only' => ['destroy']]
+
+    // );
+
+
+    // middleware to ensure that every request is authenticated
+    // Route::middleware('auth:api')->group(function () {
+
+    //     Route::post('logout', [AuthController::class, 'logout']);
+    // });
+    Route::middleware(['auth:sanctum'])->group(function () {
+
+        Route::post('logout', [AuthController::class, 'logout']);
+    });
+    Route::get('/filter/{type}', [InvoiceController::class, 'filter']);
+    Route::get('/postponedInvoices', [InvoiceController::class, 'postponedInvoices']);
+});
+
 Route::get('/debt', [InvoiceController::class, 'debt']);

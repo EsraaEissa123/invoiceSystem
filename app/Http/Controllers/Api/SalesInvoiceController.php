@@ -17,7 +17,7 @@ class SalesInvoiceController extends Controller
     {
         $inventory_id=$request->inventory_id;
         $code= Str::random(12);
-        //store to invoice
+        // store to invoice
         $invoice = new Invoice([
             'code' => $code,
             'total' => $request->total,
@@ -25,6 +25,15 @@ class SalesInvoiceController extends Controller
             'type' => "Sales"
         ]);
         $invoice->save();
+        if ($request->customerName) {
+            $customer = new Customer([
+                'name' => $request->customerName,
+                'phone' => $request->customerPhone,
+            ]);
+            $customer->save();   
+            $customer_id=$customer->id;
+        }
+        
         $invoice_id=$invoice->id;
         if ($request->paid==$request->total) {
             DB::update('update invoices set status= ? where id = ?',['paid',$invoice_id]);
@@ -41,8 +50,10 @@ class SalesInvoiceController extends Controller
             $invoicesales= Invoice::findOrFail($invoice_id);
             
             $amounInProducts=Product::findOrFail($product_id)->amount;
-            try {
+            if ($request->customer_id) {
                 $customer_id=$request->customer_id;
+            }
+            try {
                 $invoicesales ->sellProducts()
                 ->attach($invoice_id,['sell_price' =>$price,'amount' =>$amount,'customer_id'=>$customer_id,'product_id'=>$product_id,'invoice_id'=>$invoice_id]);
                 $invoicesales->save(); 
