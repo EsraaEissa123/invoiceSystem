@@ -23,14 +23,14 @@ class Invoice extends Model
         return $this->belongsToMany(Supplier::class, 'make_invoices_purchases','supplier_id', 'product_id','invoice_id')->withPivot('amount', 'purchase_price')->withTimestamps();
 
     }
-    
+
     public function sellProducts()
     {
         return $this->belongsToMany(Product::class, 'make_invoices_sales','customer_id', 'product_id','invoice_id')->withPivot('amount', 'sell_price')->withTimestamps();
     }
     public function customers()
     {
-        return $this->belongsToMany(Customer::class, 'make_invoices_sales','customer_id', 'product_id','invoice_id')->withPivot('amount', 'sell_price')->withTimestamps();
-        
+        return $this->belongsToMany(Customer::class, 'make_invoices_sales','customer_id', 'product_id','invoice_id')->withPivot('amount', 'sell_price')-> withTimestamps();
+
     }
 }
