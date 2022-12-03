@@ -18,11 +18,13 @@ class InvoiceResource extends JsonResource
             'id' => $this->id,
             'code' => $this->code,
             'customer'=> CustomerResourse::collection($this->customers),
+            'supplier'=> SupplierResource::collection($this->supplier),
             'total' => $this->total,
             'paid' => $this->paid,
             'status' => $this->status,
             'type' => $this->type,
-            'products' => ProductResourse::collection($this->products),
+            'sales_products' => ProductResourse::collection($this->salesProducts),
+            'purchases_products' => ProductResourse::collection($this->purchasesProducts),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];
