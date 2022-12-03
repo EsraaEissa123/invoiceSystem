@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Customer;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SellInvoicesRequest;
@@ -17,6 +18,11 @@ class SalesInvoiceController extends Controller
     {
         $inventory_id=$request->inventory_id;
         $code= Str::random(12);
+
+        //if it postpond you must enter client
+        if (!(($request->customer_id)||($request->customerName))&&($request->paid!=$request->total)) {
+            return response()->json(['status' => true, 'msg' => 'you must choose client']);
+        }
         // store to invoice
         $invoice = new Invoice([
             'code' => $code,
@@ -26,11 +32,17 @@ class SalesInvoiceController extends Controller
         ]);
         $invoice->save();
         if ($request->customerName) {
+           if ($request->customerPhone) {
+            # code...
             $customer = new Customer([
                 'name' => $request->customerName,
                 'phone' => $request->customerPhone,
             ]);
             $customer->save();   
+        }else {
+            return response()->json(['status' => true, 'msg' => 'you must enter the customer phone']);
+            
+        }
             $customer_id=$customer->id;
         }
         
@@ -90,5 +102,18 @@ class SalesInvoiceController extends Controller
 
         }
     }
+    public function getSalesInvoice()
+    {
+        // $SalesInvoice = DB::table('make_invoices_sales')->distinct()->paginate(15);
+        
+        $SalesInvoice= DB::table('make_invoices_sales')
+        ->join('products', function ($join) {
+        $join->on('products.id', '=', 'make_invoices_sales.product_id');
+        })
+        ->paginate(15);
+        
+        return $SalesInvoice;
+    }
+
 }
 

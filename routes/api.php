@@ -42,20 +42,25 @@ Route::middleware(['cors'])->group(function () {
     Route::apiResource('products', ProductController::class);
 
 
-    Route::apiResource('categories', CategoryController::class);
-    Route::apiResource('suppliers', SupplierController::class);
-    Route::post('store_product', [StoreProductController::class, 'StoreProduct']);
-    Route::apiResource('invoices', InvoiceController::class);
-    // Route::apiResource('invoices', InvoiceController::class)->middleware(
-    //     'permission:create-invoice'
-    // );
-    Route::post('provide', [TransactionController::class, 'transaction']);
-    Route::get('transaction', [TransactionController::class, 'getTransaction']);
-    Route::put('full_payment/{id}', [InvoicePaymentController::class, 'fullPayment']);
-    Route::put('partial_payment/{id}', [InvoicePaymentController::class, 'partialPayment']);
 
-    Route::post('purchaseInvoice', [PurchaseInvoiceController::class, 'purchaseInvoice']);
-    Route::post('sellInvoice', [SalesInvoiceController::class, 'sellInvoice']);
+Route::apiResource('categories', CategoryController::class);
+Route::apiResource('suppliers', SupplierController::class);
+Route::post('store_product', [StoreProductController::class, 'StoreProduct']);
+Route::apiResource('invoices', InvoiceController::class);
+// Route::apiResource('invoices', InvoiceController::class)->middleware(
+//     'permission:create-invoice'
+// );
+Route::post('provide', [TransactionController::class, 'transaction']);
+Route::get('transaction', [TransactionController::class, 'getTransaction']);
+Route::get('/transactionbydate', [TransactionController::class, 'getTransactionByDate']);
+
+Route::put('full_payment/{id}', [InvoicePaymentController::class, 'fullPayment']);
+Route::put('partial_payment/{id}', [InvoicePaymentController::class, 'partialPayment']);
+
+Route::post('purchaseInvoice', [PurchaseInvoiceController::class, 'purchaseInvoice']);
+Route::post('sellInvoice', [SalesInvoiceController::class, 'sellInvoice']);
+Route::get('salesInvoices', [SalesInvoiceController::class, 'getSalesInvoice']);
+
 
     // Route::group(['middleware' => ['auth']], function () {
     Route::apiResource('users', UserController::class);

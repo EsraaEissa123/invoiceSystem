@@ -4,14 +4,18 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Product;
 use App\Models\Inventory;
-use Illuminate\Http\Client\Request;
+// use Illuminate\Http\Client\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TransactionRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+
+
 
 class TransactionController extends Controller
 {
     public function transaction(TransactionRequest $request){
+    // return $request;
         $countproduct = count($request->product);
         
         
@@ -94,8 +98,19 @@ class TransactionController extends Controller
     //get transactions
     public function getTransaction()
     {
-        $transaction = DB::table('provide')->distinct()->paginate(15);
         
+        $transaction = DB::table('provide')->paginate(15);
+        
+        return $transaction;
+
+    }
+    public function getTransactionByDate(Request $request)
+    {
+        $from=$request->input('from');
+        $to=$request->input('to');
+        $transaction = DB::table('provide')
+           ->whereBetween('created_at', [$from, $to])
+           ->get();
         return $transaction;
 
     }
