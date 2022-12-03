@@ -48,4 +48,5 @@ class CustomerController extends Controller
         $customer->delete();
         return "customer has been deleted";
     }
+
 }

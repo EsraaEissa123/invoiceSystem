@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\api\SalesInvoiceController;
 use App\Http\Controllers\Api\StoreProductController;
 use App\Http\Controllers\api\PurchaseInvoiceController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 
@@ -88,4 +89,5 @@ Route::middleware(['cors'])->group(function () {
 
 });
 
-Route::get('/debt', [InvoiceController::class, 'debt']);
+Route::get('/dashboard',[DashboardController::class,'dashboard']);
+Route::get('/lastInvoices',[DashboardController::class,'lastInvoices']);

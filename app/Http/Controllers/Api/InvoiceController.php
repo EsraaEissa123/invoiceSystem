@@ -64,16 +64,6 @@ class InvoiceController extends Controller
              }
         }
     }
-    public function debt(){
-        $totalDebt = 0;
-        $purchaseInvoices = Invoice::where(['type'=>'purchases','status'=>'postponed'])->get();
-        foreach($purchaseInvoices as $invoice){
-            $invoiceDebt = $invoice->total-$invoice->paid;
-            $totalDebt += $invoiceDebt;
-
-        };
-        return $totalDebt;
-    }
 
     public function update(InvoiceRequest $request, Invoice $invoice)
     {
