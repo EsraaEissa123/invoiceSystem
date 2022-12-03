@@ -19,7 +19,7 @@ class Customer extends Model
     }
     public function invoices()
     {
-        return $this->belongsToMany(Invoice::class, 'make_invoices_sales','customer_id', 'product_id','invoice_id')->withPivot('amount', 'sell_price')->withTimestamps();
-        
+        return $this->belongsToMany(Invoice::class, 'make_invoices_sales','invoice_id','customer_id')->withPivot('amount', 'sell_price')->withTimestamps();
+
     }
 }
