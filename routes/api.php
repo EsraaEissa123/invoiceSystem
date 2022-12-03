@@ -50,11 +50,14 @@ Route::apiResource('invoices', InvoiceController::class);
 // );
 Route::post('provide', [TransactionController::class, 'transaction']);
 Route::get('transaction', [TransactionController::class, 'getTransaction']);
+Route::get('/transactionbydate', [TransactionController::class, 'getTransactionByDate']);
+
 Route::put('full_payment/{id}', [InvoicePaymentController::class, 'fullPayment']);
 Route::put('partial_payment/{id}', [InvoicePaymentController::class, 'partialPayment']);
 
 Route::post('purchaseInvoice', [PurchaseInvoiceController::class, 'purchaseInvoice']);
 Route::post('sellInvoice', [SalesInvoiceController::class, 'sellInvoice']);
+Route::get('salesInvoices', [SalesInvoiceController::class, 'getSalesInvoice']);
 
 // Route::group(['middleware' => ['auth']], function () {
 Route::apiResource('users', UserController::class);
