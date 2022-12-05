@@ -20,9 +20,9 @@ return new class extends Migration
             $table->unsignedBigInteger('product_id');
             $table->integer('amount')->unsigned();    
             $table->float('purchase_price');
-            $table->foreign('invoice_id')->references('id')->on('invoices');
-            $table->foreign('supplier_id')->references('id')->on('suppliers');
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('invoice_id')->references('id')->on('invoices')->onDelete('cascade');
+            $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
 
             $table->timestamps();
         });
