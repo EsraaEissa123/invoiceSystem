@@ -34,6 +34,10 @@ class Inventory extends Model
     }
     public function inventories()
     {
-        return $this->belongsToMany(invetory::class,'provide','inventory_id','shop_id','product_id')->withPivot('amount')->withTimestamps();
+        return $this->belongsToMany(inventory::class,'provide','inventory_id','shop_id','product_id')->withPivot('amount')->withTimestamps();
+    }
+    public function transaction()
+    {
+        return $this->belongsToMany(Product::class,'provide','inventory_id','product_id')->withPivot('amount')->withTimestamps();
     }
 }

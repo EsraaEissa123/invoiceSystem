@@ -21,8 +21,8 @@ return new class extends Migration
             $table->integer('amount')->unsigned();    
             $table->float('sell_price');
             $table->foreign('product_id')->references('id')->on('products');
-            $table->foreign('invoice_id')->references('id')->on('invoices');
-            $table->foreign('customer_id')->references('id')->on('customers');
+            $table->foreign('invoice_id')->references('id')->on('invoices')->onDelete('cascade');
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->timestamps();
         });
     }
