@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('customer_id')->nullable();
             $table->integer('amount')->unsigned();    
             $table->float('sell_price');
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('invoice_id')->references('id')->on('invoices')->onDelete('cascade');
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->timestamps();

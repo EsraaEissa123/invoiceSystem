@@ -20,8 +20,8 @@ return new class extends Migration
             $table->integer('amount')->unsigned();    
             $table->timestamps();
 
-            $table->foreign('inventory_id')->references('id')->on('inventories');
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('inventory_id')->references('id')->on('inventories')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 
