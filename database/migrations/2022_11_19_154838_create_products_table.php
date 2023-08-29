@@ -17,7 +17,11 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->float('sell_price');
+            $table->float('purchase_price');
+            $table->float('box_price');
             $table->integer('amount')->unsigned()->default(0);    
+            $table->integer('shrink_pieces')->unsigned()->default(0);    
+            $table->integer('box_pieces')->unsigned()->default(0);    
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
